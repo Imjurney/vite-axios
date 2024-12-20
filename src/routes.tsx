@@ -1,25 +1,18 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import MainContainer from "./container/MainContainer";
-
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import MainContainer, { loader } from "./container/MainContainer";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainContainer />,
+    // react router dom 에서는 loader 함수를 직접 등록해야 합니다.
+    loader,
   },
 ]);
 
-const getProducts = async () => {
-  return (await axios.get("https://fakestoreapi.com/products")).data;
-};
+
 
 const RouterComponent = () => {
-  const { data } = useQuery({
-    queryKey: ["product"],
-    queryFn: getProducts,
-  });
 
   return (
     <>
